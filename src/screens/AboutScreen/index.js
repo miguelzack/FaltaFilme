@@ -1,9 +1,10 @@
-import {useCallback} from 'react';
+import {useRef, useState} from 'react';
 import {Alert} from 'react-native';
 import {router} from 'expo-router';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import BottomNavigation from '../../components/BottomNavigation';
 import CinemaMap from '../../components/CinemaMap';
+import {logoutAccount} from '../../services/authService';
 import {
     Card,
     Content,
@@ -32,15 +33,23 @@ const CINEMA = {
 export default function AboutScreen() {
     const insets = useSafeAreaInsets();
 
-    const unavailable = useCallback((/** @type {string} */ name) => {
-        const label = name.toLowerCase();
-        if (label.includes('sobre')) return;
-        if (label.includes('início') || label.includes('inicio') || label.includes('home')) {
-            router.replace('/home');
-            return;
+    const [signingOut, setSigningOut] = useState(false);
+    const signingOutRef = useRef(false);
+
+    async function signOut() {
+        if (signingOutRef.current) return;
+        signingOutRef.current = true;
+        setSigningOut(true);
+        try {
+            await logoutAccount();
+            router.dismissAll();
+            router.replace('/acesso');
+        } catch {
+            Alert.alert('Não foi possível sair', 'Tente novamente.');
+            signingOutRef.current = false;
+            setSigningOut(false);
         }
-        Alert.alert(name, 'Em breve.');
-    }, []);
+    }
 
     return (<Root>
         <Scroll contentContainerStyle={{paddingTop: Math.max(insets.top, 24), paddingBottom: 32}}>
@@ -61,17 +70,20 @@ export default function AboutScreen() {
                 <Section>
                     <SectionTitle>Sobre o cinema</SectionTitle>
                     <SectionText>
+                        FALTA algo? Talvez seja um FILME.
+                    </SectionText>
+                    <SectionText>
                         O FaltaFilme é o seu cinema para aproveitar grandes histórias na tela. Escolha uma sessão,
                         reúna quem você gosta e viva esse momento com a gente.
                     </SectionText>
                 </Section>
 
-                <LogoutButton accessibilityRole="button" accessibilityLabel="Sair da conta"
-                              onPress={() => router.replace('/acesso')}>
-                    <LogoutText>Sair da conta</LogoutText>
+                <LogoutButton accessibilityRole="button" accessibilityLabel="Sair da conta" disabled={signingOut}
+                              onPress={signOut}>
+                    <LogoutText>{signingOut ? 'Saindo...' : 'Sair da conta'}</LogoutText>
                 </LogoutButton>
             </Content>
         </Scroll>
-        <BottomNavigation onUnavailable={unavailable}/>
+        <BottomNavigation active="about"/>
     </Root>);
 }

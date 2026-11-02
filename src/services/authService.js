@@ -81,3 +81,11 @@ export async function loginAccount({email, password}) {
     await saveData(SESSION_KEY, JSON.stringify({name: user.name, email: user.email}));
     return {name: user.name, email: user.email};
 }
+
+export async function logoutAccount() {
+    try {
+        await AsyncStorage.removeItem(SESSION_KEY);
+    } catch {
+        throw new AuthError('Não foi possível sair da conta. Tente novamente.', 'storage');
+    }
+}

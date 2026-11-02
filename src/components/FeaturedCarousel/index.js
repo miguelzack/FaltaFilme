@@ -16,7 +16,7 @@ function FeaturedSlide({movie, width, onPress}) {
     </Slide>);
 }
 
-/** @param {{ movies: import('../../services/movieService').Movie[], onMoviePress: () => void }} props */
+/** @param {{ movies: import('../../services/movieService').Movie[], onMoviePress: (movie: import('../../services/movieService').Movie) => void }} props */
 export default function FeaturedCarousel({movies, onMoviePress}) {
     const {width} = useWindowDimensions();
     const slideWidth = PixelRatio.roundToNearestPixel(Math.max(1, Math.min(width - 48, 452)));
@@ -92,7 +92,7 @@ export default function FeaturedCarousel({movies, onMoviePress}) {
                 if (settleTimer.current) clearTimeout(settleTimer.current);
                 finishScroll(event.nativeEvent.contentOffset.x);
             }}>
-            {carouselSlides.map((movie, index) => <FeaturedSlide key={`${movie.id}-${index}`} movie={movie} width={slideWidth} onPress={onMoviePress}/>)}
+            {carouselSlides.map((movie, index) => <FeaturedSlide key={`${movie.id}-${index}`} movie={movie} width={slideWidth} onPress={() => onMoviePress(movie)}/>)}
         </ScrollView>
         {slides.length > 1 &&
             <Dots accessibilityLabel={`Destaque ${active + 1} de ${slides.length}`}>{slides.map((movie, index) => <Dot

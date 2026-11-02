@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {Stack} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import {StatusBar} from 'expo-status-bar';
+import {NavigationBar} from 'expo-navigation-bar';
 import {useFonts} from 'expo-font';
 import {Montserrat_400Regular} from '@expo-google-fonts/montserrat/400Regular';
 import {Montserrat_500Medium} from '@expo-google-fonts/montserrat/500Medium';
@@ -23,6 +24,7 @@ export default function RootLayout() {
 
     return (<KeyboardProvider statusBarTranslucent><ThemeProvider theme={theme}>
         <StatusBar style="light"/>
+        <NavigationBar hidden/>
         <Stack screenOptions={{headerShown: false, contentStyle: {backgroundColor: theme.colors.background}}}/>
     </ThemeProvider></KeyboardProvider>);
 }
