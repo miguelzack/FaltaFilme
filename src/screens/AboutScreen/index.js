@@ -5,15 +5,28 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import BottomNavigation from '../../components/BottomNavigation';
 import CinemaMap from '../../components/CinemaMap';
 import {
-    Card, Content, Header, HeaderSubtitle, HeaderTitle, Root, Scroll,
-    CardAddress, CardHint, CardTitle, LogoutButton, LogoutText, Section, SectionText, SectionTitle
+    Card,
+    Content,
+    Header,
+    HeaderSubtitle,
+    HeaderTitle,
+    Root,
+    Scroll,
+    CardAddress,
+    CardHint,
+    CardTitle,
+    LogoutButton,
+    LogoutText,
+    Section,
+    SectionText,
+    SectionTitle
 } from './styles';
 
 const CINEMA = {
     title: 'SENAI Suíço-Brasileira',
     address: 'Rua Bento Branco de Andrade Filho, 379 - Santo Amaro, São Paulo/SP - CEP 04757-000',
-    latitude: -23.6555,
-    longitude: -46.7095,
+    latitude: -23.64783,
+    longitude: -46.722377,
 };
 
 export default function AboutScreen() {
@@ -41,7 +54,8 @@ export default function AboutScreen() {
                     <CardTitle>Localização</CardTitle>
                     <CardAddress>{CINEMA.address}</CardAddress>
                     <CardHint>Veja como chegar ao nosso cinema.</CardHint>
-                    <CinemaMap latitude={CINEMA.latitude} longitude={CINEMA.longitude} title={CINEMA.title}/>
+                    <CinemaMap latitude={CINEMA.latitude} longitude={CINEMA.longitude} title={CINEMA.title}
+                               address={CINEMA.address}/>
                 </Card>
 
                 <Section>
