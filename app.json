@@ -16,7 +16,12 @@
       "expo-router",
       "expo-font",
       "expo-splash-screen",
-      ["expo-navigation-bar", {"hidden": true}]
+      [
+        "expo-navigation-bar",
+        {
+          "hidden": true
+        }
+      ]
     ],
     "ios": {
       "supportsTablet": true
@@ -38,9 +43,13 @@
           "web": true
         }
       },
+      "expo-navigation-bar": {
+        "hidden": true
+      },
       "eas": {
-        "projectId": "46f537d8-a455-44b4-a2d1-ca948b0f16e3"
+        "projectId": "84a25566-6b26-4c1e-b240-7e8ea0167af4"
       }
-    }
+    },
+    "owner": "miguelzack"
   }
 }
