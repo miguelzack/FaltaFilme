@@ -2,6 +2,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {ActivityIndicator, Alert} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTheme} from 'styled-components/native';
+import {router} from 'expo-router';
 import HomeLogo from '../../assets/icons/HomeLogo';
 import BottomNavigation from '../../components/BottomNavigation';
 import FeaturedCarousel from '../../components/FeaturedCarousel';
@@ -37,7 +38,13 @@ export default function HomeScreen() {
         return () => controller.abort();
     }, [attempt]);
 
-    const unavailable = useCallback((/** @type {string} */ name) => Alert.alert(name, 'Em breve.'), []);
+    const unavailable = useCallback((/** @type {string} */ name) => {
+        if (name.toLowerCase().includes('sobre')) {
+            router.replace('/about');
+            return;
+        }
+        Alert.alert(name, 'Em breve.');
+    }, []);
     const openMovie = useCallback(() => unavailable('Detalhes do filme'), [unavailable]);
 
     return (<Root>
