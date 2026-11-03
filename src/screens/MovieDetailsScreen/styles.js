@@ -55,17 +55,26 @@ export const Title = styled.Text`text-align: center;
     color: ${({theme}) => theme.colors.text};
     font-family: ${({theme}) => theme.fonts.semibold};
     font-size: 18px;`;
-export const Rating = styled.Text`color: ${({theme}) => theme.colors.text};
-    background-color: #212b4d;
+
+export const RatingView = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     border: 1px solid rgba(77, 94, 133, 0.55);
     border-radius: 13px;
+    background-color: #212b4d;
     overflow: hidden;
     min-width: 76px;
     height: 28px;
     padding: 4px 12px;
+`
+export const Rating = styled.Text`color: ${({theme}) => theme.colors.text};
     text-align: center;
     font-family: ${({theme}) => theme.fonts.semibold};
-    font-size: 12px;`;
+    font-size: 12px;
+    bottom: 1px;
+`;
 export const RatingStar = styled.Text`color: ${({theme}) => theme.colors.warning};
     font-size: 14px;`;
 export const InfoRow = styled.View`flex-direction: row;

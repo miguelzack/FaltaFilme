@@ -32,6 +32,7 @@ import {
     PosterShadow,
     Rating,
     RatingStar,
+    RatingView,
     Root,
     Scroll,
     SectionTitle,
@@ -96,8 +97,13 @@ export default function MovieDetailsScreen() {
                         <Image source={{uri: poster}} style={{width: '100%', height: '100%'}} resizeMode="cover"
                                onError={() => setImageFailed(true)}/> :
                         <PosterFallback>Imagem indisponível</PosterFallback>}</Poster></PosterShadow></PosterArea>
-                    <TitleRow><Title>{movie.title}</Title><Rating><RatingStar>★</RatingStar> {movie.vote_average > 0 ? (movie.vote_average / 2).toFixed(1).replace('.', ',') : '—'}
-                    </Rating></TitleRow>
+                    <TitleRow><Title>{movie.title}</Title>
+                        <RatingView>
+                            <Rating>
+                                <RatingStar>★</RatingStar> {movie.vote_average > 0 ? (movie.vote_average / 2).toFixed(1).replace('.', ',') : '—'}
+                            </Rating>
+                        </RatingView>
+                    </TitleRow>
                     <InfoRow><MovieFact label="ANO" weight={56}
                                         value={movie.release_date?.slice(0, 4) || '—'}/><MovieFact
                         label="DURAÇÃO" weight={70} value={movie.runtime ? `${movie.runtime} min` : '—'}/><MovieFact
